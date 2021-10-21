@@ -47,7 +47,7 @@
                 <h3>Form Input Peserta Vaksinasi</h3>
             </div>
         </div>
-        <form action="/www.w3schools.com" onsubmit="return fnama() && fnik() && fjvaksin() && fnbatch()">
+        <form action="/www.w3schools.com" onsubmit="return fnama() && fnik()  && fnbatch()">
             <div class="row">
                 <div class="col">
                     <table style="width:100%">
@@ -64,7 +64,9 @@
                 <tr>
                     <td>NIK</td>
                     <td>:</td>
-                    <td> <input type="number" id="nik" class="form-control" placeholder="Masukan NIK" required>
+                    <td> <input type="number" id="nik" class="form-control" placeholder="Masukan NIK" oninput="fnik()"
+                            required>
+                        <p id="alertnik"></p>
             </div>
             </td>
             </tr>
@@ -84,7 +86,9 @@
             <tr>
                 <td>No Batch</td>
                 <td>:</td>
-                <td> <input type="text" id="nobatch" class="form-control" placeholder="Masukan No Batch" required>
+                <td> <input type="text" id="nobatch" class="form-control" placeholder="Masukan No Batch"
+                        oninput="fnbatch()" required>
+                    <p id="alertnbatch"></p>
     </div>
     </td>
     </tr>
@@ -105,15 +109,11 @@
     <script>
         function fnama() {
             let nama = document.getElementById("nama-peserta").value;
-            const nm = /^[A-Za-z]{10,}$/;
-            const b = nm.test(document.getElementById("nama-peserta").value);
+            const nm = /^[A-Za-z]{10,}$/.test(document.getElementById("nama-peserta").value);
 
-            if (nama == "") {
-                $("#alertnama").text("Anda belum memasukkan nama Anda");
-                return false;
-            }
-            else if (b == false) {
-                $("#alertnama").text("Nama tidak boleh mengandung angka");
+
+            if (nm == false) {
+                $("#alertnama").text("Nama tidak valid (alphabet dan minim 10 karakter)");
                 return false;
             } else {
                 $("#alertnama").text("");
@@ -122,6 +122,35 @@
         }
     </script>
 
+    <script>
+        function fnik() {
+            let nk = document.getElementById("nik").value;
+            const nikk = /^[0-9]{16}$/.test(document.getElementById("nik").value);
+
+            if (nikk == false) {
+                $("#alertnik").text("NIK harus angka dan 16 digit");
+                return false;
+            } else {
+                $("#alertnik").text("");
+                return true;
+            }
+        }
+    </script>
+
+    <script>
+        function fnbatch() {
+            let nb = document.getElementById("nobatch").value;
+            const nikk = /^[A-Za-z]{}$/.test(document.getElementById("nik").value);
+
+            if (nikk == false) {
+                $("#alertnbatch").text("No Batch bisa angka dan huruf tapi tidak boleh tanda baca misal spasi");
+                return false;
+            } else {
+                $("#alertnbatch").text("");
+                return true;
+            }
+        }
+    </script>
 </body>
 
 </html>
